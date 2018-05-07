@@ -1,0 +1,3 @@
+[submodule "pyDome"]
+	path = pyDome
+	url = git@github.com:rrah/pyDome.git
