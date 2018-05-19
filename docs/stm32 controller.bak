@@ -1,0 +1,226 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:switches
+LIBS:relays
+LIBS:motors
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:stm32
+LIBS:leds
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L LM741 U?
+U 1 1 5AF8B763
+P 2550 1600
+F 0 "U?" H 2550 1850 50  0000 L CNN
+F 1 "LM741" H 2550 1750 50  0000 L CNN
+F 2 "" H 2600 1650 50  0001 C CNN
+F 3 "" H 2700 1750 50  0001 C CNN
+	1    2550 1600
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5AF8B831
+P 1200 1500
+F 0 "R?" V 1280 1500 50  0000 C CNN
+F 1 "0.01" V 1200 1500 50  0000 C CNN
+F 2 "" V 1130 1500 50  0001 C CNN
+F 3 "" H 1200 1500 50  0001 C CNN
+	1    1200 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5AF8B8B0
+P 2850 1850
+F 0 "R?" V 2930 1850 50  0000 C CNN
+F 1 "20k" V 2850 1850 50  0000 C CNN
+F 2 "" V 2780 1850 50  0001 C CNN
+F 3 "" H 2850 1850 50  0001 C CNN
+	1    2850 1850
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5AF8B901
+P 2100 2000
+F 0 "R?" V 2180 2000 50  0000 C CNN
+F 1 "1k" V 2100 2000 50  0000 C CNN
+F 2 "" V 2030 2000 50  0001 C CNN
+F 3 "" H 2100 2000 50  0001 C CNN
+	1    2100 2000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L +5V #PWR?
+U 1 1 5AF8B94C
+P 700 1150
+F 0 "#PWR?" H 700 1000 50  0001 C CNN
+F 1 "+5V" H 700 1290 50  0000 C CNN
+F 2 "" H 700 1150 50  0001 C CNN
+F 3 "" H 700 1150 50  0001 C CNN
+	1    700  1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Earth #PWR?
+U 1 1 5AF8B968
+P 750 1950
+F 0 "#PWR?" H 750 1700 50  0001 C CNN
+F 1 "Earth" H 750 1800 50  0001 C CNN
+F 2 "" H 750 1950 50  0001 C CNN
+F 3 "" H 750 1950 50  0001 C CNN
+	1    750  1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L LED D?
+U 1 1 5AF8B9FD
+P 800 1450
+F 0 "D?" H 800 1550 50  0000 C CNN
+F 1 "LED" H 800 1350 50  0000 C CNN
+F 2 "" H 800 1450 50  0001 C CNN
+F 3 "" H 800 1450 50  0001 C CNN
+	1    800  1450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Earth #PWR?
+U 1 1 5AF8BD24
+P 1400 2100
+F 0 "#PWR?" H 1400 1850 50  0001 C CNN
+F 1 "Earth" H 1400 1950 50  0001 C CNN
+F 2 "" H 1400 2100 50  0001 C CNN
+F 3 "" H 1400 2100 50  0001 C CNN
+	1    1400 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR?
+U 1 1 5AF8BD55
+P 2450 1150
+F 0 "#PWR?" H 2450 1000 50  0001 C CNN
+F 1 "+5V" H 2450 1290 50  0000 C CNN
+F 2 "" H 2450 1150 50  0001 C CNN
+F 3 "" H 2450 1150 50  0001 C CNN
+	1    2450 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L 4N25 U?
+U 1 1 5AF8BE1D
+P 1650 1600
+F 0 "U?" H 1450 1800 50  0000 L CNN
+F 1 "4N25" H 1650 1800 50  0000 L CNN
+F 2 "Housings_DIP:DIP-6_W7.62mm" H 1450 1400 50  0001 L CIN
+F 3 "" H 1650 1600 50  0001 L CNN
+	1    1650 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1200 1950 750  1950
+Wire Wire Line
+	1200 1650 1200 1950
+Connection ~ 1200 1350
+Wire Wire Line
+	700  1300 700  1150
+Wire Wire Line
+	950  1450 1050 1450
+Wire Wire Line
+	1050 1450 1050 1350
+Wire Wire Line
+	650  1450 650  1300
+Wire Wire Line
+	2850 1700 2850 1600
+Wire Wire Line
+	650  1300 700  1300
+Wire Wire Line
+	1050 1350 1350 1350
+Wire Wire Line
+	2450 1150 2450 1300
+Wire Wire Line
+	2250 2000 2250 1700
+Wire Wire Line
+	2250 2000 2850 2000
+Wire Wire Line
+	2450 2100 2450 1900
+Wire Wire Line
+	1400 2100 2450 2100
+Wire Wire Line
+	1400 2100 1400 2000
+Wire Wire Line
+	1400 2000 1950 2000
+Wire Wire Line
+	1350 1350 1350 1500
+Wire Wire Line
+	1350 1700 1200 1700
+Connection ~ 1200 1700
+Wire Wire Line
+	1950 2000 1950 1700
+Wire Wire Line
+	1950 1500 2000 1500
+Wire Wire Line
+	2000 1500 2000 1700
+Wire Wire Line
+	2000 1700 1950 1700
+Wire Wire Line
+	1950 1600 2250 1600
+Wire Wire Line
+	2250 1600 2250 1500
+$Comp
+L R R?
+U 1 1 5AF8C1D6
+P 2100 1300
+F 0 "R?" V 2180 1300 50  0000 C CNN
+F 1 "1k" V 2100 1300 50  0000 C CNN
+F 2 "" V 2030 1300 50  0001 C CNN
+F 3 "" H 2100 1300 50  0001 C CNN
+	1    2100 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2100 1150 2450 1150
+Wire Wire Line
+	2100 1450 2100 1600
+Connection ~ 2100 1600
+$EndSCHEMATC
