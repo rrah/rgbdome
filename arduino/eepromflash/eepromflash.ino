@@ -18,7 +18,6 @@ void eeprom_write(byte* array, int &address, int len) {
 }
 
 void eeprom_setup() {
-  EEPROM.write(0, 255);
   int address = start_addr;
   eeprom_write(mac, address, 6);
   eeprom_write(loc_ip, address, 4);

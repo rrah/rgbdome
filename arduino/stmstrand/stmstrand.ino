@@ -4,9 +4,12 @@
 #include <EEPROM.h>
 
 #define LEDS 484
+// UDP port for control commands
 #define port_c 1338
+// UDP port for LED data
 #define port_d 1337
 
+// EEPROM order - mac[6], ip[4], sn[4], gw[4], host[40]
 #define hostlen 40
 #define start_addr 0
 
@@ -30,17 +33,32 @@ void udpData(uint16_t dest_port, uint8_t src_ip[4], uint16_t src_port, const cha
 }
 
 void control(uint16_t dest_port, uint8_t src_ip[4], uint16_t src_port, const char *data, uint16_t len) {
-  
+  if (data[0] == 1) {
+    nvic_sys_reset();
+  }
+  if (data[0] == 2) {
+    byte buf[4] = {data[1], data[2], data[3], data[4]};
+    int address = start_addr + 6;
+
+    eeprom_write(buf, address, 4);
+    nvic_sys_reset();
+  }
 }
 
-void eeprom_read(byte* array, int &address, int len) {
+void eeprom_read(byte* ret_array, int &address, int len) {
   // Read from address, for len bytes, modifying buffer array
   for (int i = 0; i < len; i++) {
-    array[i] = EEPROM.read(address);
+    ret_array[i] = EEPROM.read(address);
     ++address;
   }
 }
 
+void eeprom_write(byte* array, int &address, int len) {
+  for (int i = 0; i < len; i++) {
+    EEPROM.write(address, array[i]);
+    ++address;
+  }
+}
 
 void setup(){
   int address = start_addr;
