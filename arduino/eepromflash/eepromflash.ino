@@ -2,11 +2,14 @@
 
 #define start_addr 0
 
+#define MAC {0x92, 0x00, 0x00, 0x00, 0x00, 0x00}
+#define IP {192, 168, 10, 7}
+
 // EEPROM order - mac[6], ip[4], sn[4], gw[4], host[40]
 
 byte hostname[] = "control-01";
-byte mac[] = {0x92, 0x00, 0x00, 0x00, 0x00, 0x00};
-byte loc_ip[4] = {192, 168, 10, 7};
+byte mac[] = MAC;
+byte loc_ip[4] = IP;
 byte gw[4] = {192, 168, 10, 1};
 byte sn[4] = {255, 255, 255, 0};
 

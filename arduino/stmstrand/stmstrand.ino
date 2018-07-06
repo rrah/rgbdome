@@ -33,15 +33,50 @@ void udpData(uint16_t dest_port, uint8_t src_ip[4], uint16_t src_port, const cha
 }
 
 void control(uint16_t dest_port, uint8_t src_ip[4], uint16_t src_port, const char *data, uint16_t len) {
-  if (data[0] == 1) {
+  if (data[0] == 0x01) {
+    // Reset
     nvic_sys_reset();
-  }
-  if (data[0] == 2) {
+  } else if (data[0] == 0x02) {
+    // Change IP
     byte buf[4] = {data[1], data[2], data[3], data[4]};
     int address = start_addr + 6;
 
     eeprom_write(buf, address, 4);
     nvic_sys_reset();
+  } else if (data[0] == 0x11){
+    // Flash all LEDs 10 times
+    for(int t=0; t<10; t++){
+      for(uint16_t i=0; i<LEDS; i++){
+        uint16_t j = i * 3;
+        strip.setPixelColor(i, 0xff, 0xff, 0xff);
+      }
+      strip.show();
+      delay(1000);
+      for(uint16_t i=0; i<LEDS; i++){
+        uint16_t j = i * 3;
+        strip.setPixelColor(i, 0, 0, 0);
+      }
+      strip.show();
+      delay(1000);
+    }
+  } else if (data[0] == 0x12){
+    // Chase along strip 3 times
+    for(int t=0; t<3; t++){
+      for(uint16_t i=0; i<LEDS; i++){
+        uint16_t j = i * 3;
+        strip.setPixelColor(i, 0xff, 0xff, 0xff);
+        strip.show();
+        delay(10);
+      }
+      strip.show();
+      delay(1000);
+      for(uint16_t i=0; i<LEDS; i++){
+        uint16_t j = i * 3;
+        strip.setPixelColor(i, 0, 0, 0);
+      }
+      strip.show();
+      delay(1000);
+    }
   }
 }
 
@@ -53,9 +88,9 @@ void eeprom_read(byte* ret_array, int &address, int len) {
   }
 }
 
-void eeprom_write(byte* array, int &address, int len) {
+void eeprom_write(byte* ret_array, int &address, int len) {
   for (int i = 0; i < len; i++) {
-    EEPROM.write(address, array[i]);
+    EEPROM.write(address, ret_array[i]);
     ++address;
   }
 }
