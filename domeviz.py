@@ -1,6 +1,7 @@
 # Built-in
 import getopt
 import math
+import socket
 import sys
 import time
 
@@ -14,6 +15,11 @@ import pyDome.SymmetryTriangle
 import pyDome.GeodesicSphere
 import pyDome.Output
 import pyDome.Truncation
+
+# Socket constants
+SOCK_IP = "192.168.10.5"
+SOCK_START_PORT = 19850
+SOCK_MAX_LEDS = 484
 
 # Constants for leds
 sep = 1/60
@@ -34,6 +40,8 @@ sphere = pyDome.GeodesicSphere.GeodesicSphere(polyhedral, symmetry_triangle, ver
 
 V, C = pyDome.Truncation.truncate(sphere.sphere_vertices, sphere.non_duplicate_chords, truncation_amount)
 
+# Create map between numbering vertices from middle, and 
+# how it's numbered in pyDome
 v_sort = []
 for i, v in enumerate(V):
     x = v[0]
@@ -68,8 +76,6 @@ for c in C:
 
 C_new.sort(key = lambda x: (x[0], x[1]))
 
-print(C_new)
-
 # And create the LEDs
 led_list = []
 for c in C_new:
@@ -77,6 +83,7 @@ for c in C_new:
     end = vpython.vector(*V[new_v[c[1]]])
     if (end - start).mag < 0.01:
         # Dud cord
+        print("Ignoring {}".format(c))
         continue
 
     direc = ((end - start) * sep) / (end - start).mag
@@ -86,7 +93,7 @@ for c in C_new:
     if length == 0.83:
         leds = 41
     if length == 0.82:
-        leds = 42
+        leds = 41
     if length == 0.88:
         leds = 44
     if length == 0.91:
@@ -98,9 +105,31 @@ for c in C_new:
         led = vpython.sphere(pos = start + (direc * (i + 4)), radius = 0.003)
         led_list.append(led)
 
+# Create the listening ports
+sock_ports = []
+for i in range(math.ceil(len(led_list)/SOCK_MAX_LEDS)):
+    port = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    port.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    port.setblocking(False)
+    port.bind((SOCK_IP, SOCK_START_PORT + i))
+
+    sock_ports.append(port)
+
 # Do shit with LEDs
 while True:
-    for color in [vpython.vector(1,0,0), vpython.vector(0,1,0), vpython.vector(0,0,1)]:
-        for led in led_list:
-            led.color = color
-            time.sleep(0.01)
+    for port_idx, port in enumerate(sock_ports):
+        try:
+            data, addr = port.recvfrom(SOCK_MAX_LEDS*3+43)
+        except BlockingIOError:
+            # No UDP packet
+            continue
+        for i in range(SOCK_MAX_LEDS):
+            
+            try:
+                r = int(data[i*3])
+                g = int(data[(i*3)+1])
+                b = int(data[(i*3)+2])
+            except IndexError:
+                # End of data
+                pass
+            led_list[i + (port_idx * SOCK_MAX_LEDS)].color = vpython.vector(r, g, b)
