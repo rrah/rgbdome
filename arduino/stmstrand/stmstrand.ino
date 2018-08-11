@@ -7,7 +7,7 @@
 // UDP port for control commands
 #define port_c 1338
 // UDP port for LED data
-#define port_d 1337
+#define port_d 10460
 
 // EEPROM order - mac[6], ip[4], sn[4], gw[4], host[40]
 #define hostlen 40
