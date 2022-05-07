@@ -35,3 +35,10 @@ The 3v3 reg on "Blue Pill" STM32 boards is somewhat cheap, and some instability 
 For futher information, see:
 http://wiki.stm32duino.com/index.php?title=Blue_Pill#Known_issues
 https://electronics.stackexchange.com/questions/52349/why-is-ethernet-so-power-hungry
+
+### Flashing controller
+- Download and nstall Arduino IDE
+- Download and install ST-LINK drivers (https://www.st.com/en/development-tools/stsw-link009.html)
+- Download lastest Arduino_STM32 by Roger Clark from Github (https://github.com/rogerclarkmelbourne/Arduino_STM32) and place into Arduino Hardware folder (default %programfiles(x86)%\Arduino\Hardware)
+- Run the IDE, and on the Tools menu, select the Boards manager, and install the Arduino SAM boards (Cortex-M3) from the list of available boards. You must do this step, it installs the arm-none-eabi-g++ toolchain!
+- Run stm32-setup.py, following the instructions in the console
